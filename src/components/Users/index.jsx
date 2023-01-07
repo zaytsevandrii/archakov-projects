@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Skeleton } from './Skeleton';
 import { User } from './User';
 
-export const Users = ({ items, isLoading }) => {
+export const Users = ({ items, isLoading,onClickInvite,invites }) => {
   const [text,setText]=useState('')
   return (
     <>
@@ -22,7 +22,7 @@ export const Users = ({ items, isLoading }) => {
       ) : (
         <ul className="users-list">
           {items.filter(item=>item.first_name.toLowerCase().includes(text.toLowerCase())).map((user) => (
-            <User key={user.id} {...user}/>
+            <User isInvited={invites.includes(user.id)} invites={invites} key={user.id} {...user} onClickInvite={onClickInvite}/>
           ))}
         </ul>
       )}

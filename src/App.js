@@ -10,6 +10,7 @@ import { useState } from "react"
 function App() {
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [invites,setInvites] = useState([])
     useEffect(() => {
         setIsLoading(true)
         const getUsers = async () => {
@@ -20,11 +21,17 @@ function App() {
         getUsers()
         setIsLoading(false)
     }, [])
-    console.log(data)
-
+    console.log(invites)
+const onClickInvite = (id) =>{
+  if(invites.includes(id)){
+    setInvites(prev=>prev.filter(_id=>_id!==id))
+  }else{
+    setInvites(prev=>[...prev,id])
+  }
+}
     return (
         <div className="App">
-            <Users isLoading={isLoading} items={data} />
+            <Users isLoading={isLoading} items={data} onClickInvite={onClickInvite} invites={invites}/>
             {/* <Success /> */}
         </div>
     )
